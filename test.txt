@@ -1,0 +1,7 @@
+12 March 2012
+
+Here are a couple of test sentences. Just to see how things might work. Hopefully they do! What's the weather like?
+
+13 March 2012
+
+And here are a couple more sentences. I need to be able to break them up by date groups. Then remove the date, separate the sentences, and append the date to each.
