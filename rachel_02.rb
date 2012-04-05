@@ -22,8 +22,8 @@
 #[a link][file_name.page]
 
 class DataSet
-  MAX_TO_SAVE = 3
-  COMMON_WORDS_TO_REMOVE = ["my", "i", "the", "to"]
+  MAX_TO_SAVE = 20
+  COMMON_WORDS_TO_REMOVE = []
   
 	attr_accessor :word_counts, :text, :bigrams, :sorted_counts
 	
@@ -35,6 +35,10 @@ class DataSet
 		
 		File.new(file_name, "r").each_line do |line|
 			@text = @text + " " + line.chomp
+		end
+		
+		File.new("common_words.txt", "r").each_line do |line|
+		  COMMON_WORDS_TO_REMOVE << line.chomp.downcase
 		end
 		
 		create_tables
@@ -73,15 +77,17 @@ end
 
 
 class SentenceAnalyzer
-  NUMBER_TO_OUTPUT = 3
+  NUMBER_TO_OUTPUT = 50
   
-  attr_accessor :date_groups, :date_and_sentences, :set
+  attr_accessor :date_groups, :date_and_sentences, :set, :final_sentences
   
   def initialize(file_name, set)
     @set = set
     @date_groups = []
     @date_and_sentences = []
-    date_regex = /\d\d.*\w.*\d\d\d\d/
+    @final_sentences = []
+    #date_regex = /\d\d.*\w.*\d\d\d\d/
+    date_regex=/day\s\d+/i
     
     current_group = []
     
@@ -102,6 +108,7 @@ class SentenceAnalyzer
 		split_sentences
 		score_sentences
 		output_best
+		create_html_files
   end
   
   
@@ -112,7 +119,7 @@ class SentenceAnalyzer
       entry = [date, []]
 
       #regex from http://stackoverflow.com/questions/860809/how-do-you-parse-a-paragraph-of-text-into-sentences-perferrably-in-ruby
-      sentences = group[1].split(/(?:(?<=\.|\!|\?)(?<!Mr\.|Dr\.)(?<!U\.S\.A\.)\s+(?=[A-Z]))/)
+      sentences = group[1].split(/(?:(?<=\.|\!|\?)(?<!Mr\. | Dr\. | Ms\.| Mrs\.)(?<!U\.S\.A\.)\s+(?=[A-Z]))/)
    
       sentences.each do |sentence|
         entry[1] << sentence
@@ -153,28 +160,121 @@ class SentenceAnalyzer
     collection_of_sentences.sort!{ |a, b| a[1] <=> b[1] }
     collection_of_sentences.reverse!
     
+    #print collection_of_sentences
+    #puts
+    #puts
+    #print @date_and_sentences
+    #puts
+    #puts
+    #print @date_groups[0]
+    #puts
+    #puts
+    #print @date_groups[1]
+    #puts
+    #puts
+    #puts @date_groups.length
+    
     for i in 0...NUMBER_TO_OUTPUT
-      puts collection_of_sentences[i][0]
+      @final_sentences << collection_of_sentences[i][0]
+    end
+  end
+  
+  
+  def create_html_files
+    #sorted_counts = [word, count]
+    
+    for i in 0...@final_sentences.length
+      processed_sentence = process_sentence(@final_sentences[i])
+      
+      File.open("#{i}.html", "w") do |f|
+        f.write("<html>")
+        f.write(processed_sentence)
+        f.write("</html>")
+      end
+    end
+  end
+  
+  
+  def process_sentence(sentence)
+    sentence_to_scan = sentence.clone
+    
+    
+    sentence_to_scan.scan(/\w+/) do |word|
+      set.sorted_counts.each do |e|
+        if e.include? word
+          #puts "IN HERE"
+          index = find_sentence_with_word(sentence, word)
+          #puts "index: #{index}"
+          #puts "word: #{word}"
+          #puts "e:"
+          #print e
+          #puts
+          
+          #puts "sentence before sub:"
+          #puts sentence
+          sentence.gsub!(word, "<a href=\"#{index}.html\">#{word}</a>")
+          #puts "sentence after sub:"
+          #puts sentence
+        end
+      end
+    end
+    
+    return sentence
+  end
+  
+  
+  def find_sentence_with_word(sentence, word)
+    index = @final_sentences.index sentence
+    index += 1
+    
+    for i in index...@final_sentences.length
+      if @final_sentences[i].include? word
+        return i unless @final_sentences[i] == sentence
+      end
+    end
+    
+    for i in 0...@final_sentences.length
+      if @final_sentences[i].include? word
+        return i unless @final_sentences[i] == sentence
+      end
     end
   end 
 end
 
 #-------------begin--------------
 
-analyzer = SentenceAnalyzer.new("test.txt", DataSet.new("test.txt"))
+analyzer = SentenceAnalyzer.new("rachel.txt", DataSet.new("rachel.txt"))
 
-puts
-puts "Word Counts:"
-print analyzer.set.word_counts
-puts
-puts
-puts "Sorted Counts:"
-print analyzer.set.sorted_counts
-puts
-puts
-puts "Date_Sentences:"
-print analyzer.date_and_sentences
-puts
-puts
-puts "Results:"
-analyzer.output_best
+
+#puts
+#puts "Word Counts:"
+#print analyzer.set.word_counts
+#puts
+#puts "dad: " + analyzer.set.word_counts["dad"].to_s
+#puts "mom: " + analyzer.set.word_counts["mom"].to_s
+#puts "gray: " + analyzer.set.word_counts["gray"].to_s
+#puts "megan: " + analyzer.set.word_counts["megan"].to_s
+#puts "suzanne: " + analyzer.set.word_counts["suzanne"].to_s
+#puts "rachel: " + analyzer.set.word_counts["rachel"].to_s
+#puts "harrison: " + analyzer.set.word_counts["harrison"].to_s
+#puts "tanner: " + analyzer.set.word_counts["tanner"].to_s
+#puts "bryce: " + analyzer.set.word_counts["bryce"].to_s
+#puts "ryan: " + analyzer.set.word_counts["ryan"].to_s
+#puts "evan: " + analyzer.set.word_counts["evan"].to_s
+#puts "apinya: " + analyzer.set.word_counts["apinya"].to_s
+#puts "krista: " + analyzer.set.word_counts["krista"].to_s
+#puts "becky: " + analyzer.set.word_counts["becky"].to_s
+#puts "school: " + analyzer.set.word_counts["school"].to_s
+#puts "text: " + analyzer.set.word_counts["text"].to_s
+
+#puts
+#puts "Sorted Counts:"
+#print analyzer.set.sorted_counts
+#puts
+#puts
+#puts "Date_Sentences:"
+#print analyzer.date_and_sentences
+#puts
+#puts
+#puts "Results:"
+#analyzer.output_best
