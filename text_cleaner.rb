@@ -11,7 +11,11 @@ def clean_line line
   end
 end
 
+<<<<<<< HEAD
+#----------------
+=======
 #---------------
+>>>>>>> de2e0b145017511426454da1a11e7d9fa88834a8
 text = ""
 
 File.new("rachel.txt", "r").each_line do |line|

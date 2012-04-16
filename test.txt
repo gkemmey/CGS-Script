@@ -1,7 +1,24 @@
-12 March 2012
+Day 1 -3/9/11 -a day
 
-Here are a couple of test sentences. Just to see how things might work. Hopefully they do! What's the weather like?
+The objective of this Test Plan is to outline how the testing will be carried out by the developers in the final phase of development. Planning out the projected time frames will help the testing team gain a better understanding of the work flow and will be used to help the project manager efficiently allocate resources. Organizing this final phase will allow the team to react in an appropriate manner if there becomes an issue with lots of unexpected bugs. The Test Plan will also help familiarize testers with the software who may not have been involved with the earlier development and planning.
 
-13 March 2012
+Day 30 -a day and friday -4/15/11
 
-And here are a couple more sentences. I need to be able to break them up by date groups. Then remove the date, separate the sentences, and append the date to each.
+The software testing phase will cover the entire functionality of the site as well as some basic security issues. The testing processes will be very similar to the development stage, starting with basic site functions to verifying that the site is protected against malicious SQL injections.  The testing phase will be very thorough and will not leave out any functionality that either the student,employer, or administrator user's will be capable of. There are no features that will not be tested.
+
+Day 38 -saturday -4/23/11
+
+The University of Mary Washington Career software is designed to bring employers and students together in an easy to use environment. The system's purpose is to make job posting effortless for employers so that they will be able to post with vacant company positions online with ease so they will come back to use the system later. Student users will be able to navigate the environment and organize the job postings to make their search easier. 
+Organization
+
+Day 62 -tuesday -a day -5/17/11
+
+The Test Plan is broken into two main sections: Test plan and Test procedure. Testing plan provides an overview of how time and resources will be spent during the testing phase. Test procedure documents that entire testing procedure in a table so the results of each tested unit are easily accessible.
+
+Day 89 -tuesday -6/14/11
+ 
+The testing for the CPSC Jobs Website will consist of Unit, Systems/Integration, and Acceptance test levels. Most testing will be done by an outside team of developers, with the exception of Unit testing which should be done by the developer responsible for that section. Proof of Unit testing, be it test case list, sample output, data printouts, or defect information, must be provided back to the team as a whole before unit testing can be considered completed. System/Integration testing will be performed by an outside team of developers, with assistance from the team responsible for the CPSC Jobs Website as needed. Acceptance testing will be performed again by the team of outside developers, this time assuming the role of end users. The CPSC Jobs Website will enter acceptance testing after all critical and major defects have been corrected.
+
+Day 115 -sunday -7/10/11
+
+The overall strategy for the software involves separating test sections into the following feature groups: database setup, registering a user, logging in a user, manage student profile, manage company profile, and search for and display listings. For each section we have a test suite of unit tests, as well as a suite of integration tests. Lastly, as part of acceptance testing there are acceptance tests that test browser compatibility.
