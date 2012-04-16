@@ -120,8 +120,13 @@ class SentenceAnalyzer
 
       #regex from http://stackoverflow.com/questions/860809/how-do-you-parse-a-paragraph-of-text-into-sentences-perferrably-in-ruby
       #sentences = group[1].split(/(?:(?<=\.|\!|\?)(?<!Mr\. | Dr\. | Ms\.| Mrs\.)(?<!U\.S\.A\.)\s+(?=[A-Z]))/)
+<<<<<<< HEAD
       sentences = group[1].split(/(?:(?<=\.|\!|\?)(?<!Mr\. | Dr\. | Ms\.| Mrs\.)(?<!U\.S\.A\.)\s+(?=[A-Z]))/)
       
+=======
+      sentences = group[1].split(/(?:(?<=\.|\!|\?)(?<!Mr\.|Dr\.|Ms\.| Mrs\.)(?<!U\.S\.A\.)\s+(?=[A-Z]))/)
+   
+>>>>>>> de2e0b145017511426454da1a11e7d9fa88834a8
       sentences.each do |sentence|
         entry[1] << sentence
       end
@@ -192,7 +197,18 @@ class SentenceAnalyzer
       processed_sentence = process_sentence(@final_sentences[i])
       
       File.open("#{i}.html", "w") do |f|
-        f.write("<html>")
+        f.write("<html><head><style type=\"text\\css\">\n")
+        f.write("body {\n")
+        f.write("background: #111111;\n")
+        f.write("font: 60px Helvetica, Arial, sans-serif;\n")
+        f.write("letter-spacing: -3px;\n")
+        f.write("margin: 60px;\n")
+        f.write("color: #5c5c5c;}\n")
+        f.write("a {\n")
+        f.write("color: #0074ae;\n")
+        f.write("font-weight: bold;}\n")
+        f.write("</style></head>\n")
+        #f.write("<body>")
         f.write(processed_sentence)
         f.write("</html>")
       end
@@ -248,10 +264,14 @@ end
 
 #-------------begin--------------
 
+<<<<<<< HEAD
 #analyzer = SentenceAnalyzer.new("rachel.txt", DataSet.new("rachel.txt"))
 #analyzer = SentenceAnalyzer.new("test.txt", DataSet.new("test.txt"))
 analyzer = SentenceAnalyzer.new("rachel_clean.txt", DataSet.new("rachel_clean.txt"))
 
+=======
+analyzer = SentenceAnalyzer.new("rachel_clean.txt", DataSet.new("rachel_clean.txt"))
+>>>>>>> de2e0b145017511426454da1a11e7d9fa88834a8
 
 
 #puts
