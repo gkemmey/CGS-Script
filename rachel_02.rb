@@ -153,7 +153,7 @@ class SentenceAnalyzer
     collection_of_sentences = []
     @date_and_sentences.each do |element|
       element[1].each do |sentence|
-        sentence[0] = sentence[0] + " " + element[0]
+        sentence[0] = sentence[0] #+ " " + element[0]
         collection_of_sentences << sentence
       end
     end
