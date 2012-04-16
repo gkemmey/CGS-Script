@@ -197,7 +197,7 @@ class SentenceAnalyzer
       processed_sentence = process_sentence(@final_sentences[i])
       
       File.open("#{i}.html", "w") do |f|
-        f.write("<html><head><style type=\"text\\css\">\n")
+        f.write("<html><head><style type=\"text/css\">\n")
         f.write("body {\n")
         f.write("background: #111111;\n")
         f.write("font: 60px Helvetica, Arial, sans-serif;\n")
