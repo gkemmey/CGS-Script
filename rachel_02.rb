@@ -119,8 +119,9 @@ class SentenceAnalyzer
       entry = [date, []]
 
       #regex from http://stackoverflow.com/questions/860809/how-do-you-parse-a-paragraph-of-text-into-sentences-perferrably-in-ruby
+      #sentences = group[1].split(/(?:(?<=\.|\!|\?)(?<!Mr\. | Dr\. | Ms\.| Mrs\.)(?<!U\.S\.A\.)\s+(?=[A-Z]))/)
       sentences = group[1].split(/(?:(?<=\.|\!|\?)(?<!Mr\. | Dr\. | Ms\.| Mrs\.)(?<!U\.S\.A\.)\s+(?=[A-Z]))/)
-   
+      
       sentences.each do |sentence|
         entry[1] << sentence
       end
@@ -175,6 +176,10 @@ class SentenceAnalyzer
     #puts @date_groups.length
     
     for i in 0...NUMBER_TO_OUTPUT
+      #print collection_of_sentences
+      #puts
+      #puts
+      #puts
       @final_sentences << collection_of_sentences[i][0]
     end
   end
@@ -243,7 +248,10 @@ end
 
 #-------------begin--------------
 
-analyzer = SentenceAnalyzer.new("rachel.txt", DataSet.new("rachel.txt"))
+#analyzer = SentenceAnalyzer.new("rachel.txt", DataSet.new("rachel.txt"))
+#analyzer = SentenceAnalyzer.new("test.txt", DataSet.new("test.txt"))
+analyzer = SentenceAnalyzer.new("rachel_clean.txt", DataSet.new("rachel_clean.txt"))
+
 
 
 #puts
